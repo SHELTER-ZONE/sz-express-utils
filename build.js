@@ -9,7 +9,7 @@ const peerDependencies = packageJson.peerDependencies
 console.log('building...')
 build({
   entryPoints: ['./src/index.ts'],
-  outdir: 'dist',
+  outdir: './lib',
   format: 'cjs',
   bundle: true,
   external: [
@@ -19,8 +19,8 @@ build({
 })
 
 build({
-  entryPoints: ['./src/middleware/index.ts'],
-  outdir: 'dist/middleware',
+  entryPoints: ['./src/lib/middleware/index.ts'],
+  outdir: './lib/middleware',
   format: 'cjs',
   bundle: true,
   external: [
@@ -34,7 +34,7 @@ console.log('building done.')
 console.log('generating types...')
 new Generator({
   entry: './src/index.ts',
-  output: './dist/index.d.ts',
+  output: './lib/index.d.ts',
 }).generate()
 
 console.log('all done.')
