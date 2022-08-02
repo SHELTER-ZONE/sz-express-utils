@@ -1,4 +1,4 @@
-import middleware from '@shelter-zone/sz-express-utils/lib/middleware'
+import middleware from "@shelter-zone/sz-express-utils/lib/middleware"
 
 const a = middleware()
 
