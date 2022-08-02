@@ -17,6 +17,18 @@ build({
     ...Object.keys(peerDependencies)
   ],
 })
+
+build({
+  entryPoints: ['./src/middleware/index.ts'],
+  outdir: 'dist/middleware',
+  format: 'cjs',
+  bundle: true,
+  external: [
+    ...Object.keys(dependencies),
+    ...Object.keys(peerDependencies)
+  ],
+})
+
 console.log('building done.')
 
 console.log('generating types...')
