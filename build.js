@@ -19,8 +19,8 @@ build({
 })
 
 build({
-  entryPoints: ['./src/lib/middleware/index.ts'],
-  outdir: './lib/middleware',
+  entryPoints: ['./src/lib/middleware/validate.ts'],
+  outdir: './lib/middleware/validate',
   format: 'cjs',
   bundle: true,
   external: [
