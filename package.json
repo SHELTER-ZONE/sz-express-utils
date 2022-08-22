@@ -1,6 +1,6 @@
 {
   "name": "@shelter-zone/sz-express-utils",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "",
   "types": "./lib/index.d.ts",
   "main": "./lib/index.js",
