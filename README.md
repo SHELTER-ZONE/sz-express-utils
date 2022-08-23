@@ -1,5 +1,17 @@
 # sz-express-utils
 
+## **middleware**
+
+> **sendResponse**
+
+```ts
+import express from 'express'
+import { sendResponse } from '@shelter-zone/lib/middleware'
+
+const app = express()
+app.use(sendResponse)
+```
+
 ## **middleware/validate**
 
 > **requestDataValidate**

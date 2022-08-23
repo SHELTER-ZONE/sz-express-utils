@@ -14,6 +14,36 @@ declare module '@shelter-zone/sz-express-utils/lib/logger' {
   }) => void;
 
 }
+declare module '@shelter-zone/sz-express-utils/lib/middleware/index' {
+  import { Request, Response, NextFunction } from 'express';
+  global {
+      namespace Express {
+          interface Response {
+              ok: (data?: any) => void;
+              fail: ({ status, code, message }: ErrorResponse) => void;
+          }
+      }
+  }
+  export interface ResponseFormat {
+      status: number;
+      code?: string;
+      message?: string;
+      data?: any;
+  }
+  export interface ErrorResponse {
+      status?: number;
+      code?: string;
+      message?: string;
+  }
+  export const resFormat: ({ status, code, message, data }: ResponseFormat) => {
+      status: number;
+      code: string;
+      message: string;
+      data: any;
+  };
+  export const sendResponse: (_req: Request, res: Response, next: NextFunction) => void;
+
+}
 declare module '@shelter-zone/sz-express-utils/lib/middleware/validate' {
   import { Request, Response, NextFunction } from 'express';
   import { ObjectSchema } from 'joi';
