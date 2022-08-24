@@ -77,7 +77,7 @@ export const ignoreRequestStrings: Array<string> = [
   'manifest.json',
 ]
 
-export function routeLog(req: Request, _res: Response, next: NextFunction) {
+export const routeLog = (req: Request, _res: Response, next: NextFunction) => {
   if (
     ignoreRequestStrings.some((value) => req.originalUrl.includes(value)) ||
     req.method === 'HEAD'

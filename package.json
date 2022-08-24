@@ -1,12 +1,14 @@
 {
   "name": "@shelter-zone/sz-express-utils",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "",
   "types": "./lib/index.d.ts",
   "main": "./lib/index.js",
   "exports": {
     ".": "./lib/index.js",
-    "./lib/middleware": "./lib/middleware/index.js"
+    "./lib/logger": "./lib/logger.js",
+    "./lib/middleware": "./lib/middleware/index.js",
+    "./lib/middleware/validate": "./lib/middleware/validate.js"
   },
   "files": [
     "lib"

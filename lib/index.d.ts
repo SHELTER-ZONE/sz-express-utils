@@ -46,7 +46,7 @@ declare module '@shelter-zone/sz-express-utils/middleware/index' {
    */
   export const sendResponse: (_req: Request, res: Response, next: NextFunction) => void;
   export const ignoreRequestStrings: Array<string>;
-  export function routeLog(req: Request, _res: Response, next: NextFunction): void;
+  export const routeLog: (req: Request, _res: Response, next: NextFunction) => void;
   export function disableCaching(req: Request, res: Response, next: NextFunction): void;
 
 }
