@@ -10,7 +10,7 @@ console.log('building...')
 build({
   entryPoints: ['src/index.ts', 'src/logger.ts'],
   outdir: 'lib',
-  format: 'esm',
+  format: 'cjs',
   bundle: true,
   minify: true,
   external: [
@@ -25,7 +25,7 @@ build({
     'src/middleware/validate.ts'
   ],
   outdir: 'lib/middleware',
-  format: 'esm',
+  format: 'cjs',
   bundle: true,
   minify: true,
   external: [
