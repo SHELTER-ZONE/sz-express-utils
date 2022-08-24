@@ -1,22 +1,23 @@
 
-const { build } = require('esbuild')
-const { Generator } = require('npm-dts')
-const packageJson = require('./package.json')
+import { build } from 'esbuild'
+import npmDts from 'npm-dts'
+const { Generator } = npmDts
 
-const dependencies = packageJson.dependencies
-const peerDependencies = packageJson.peerDependencies
+// const dependencies = packageJson.dependencies
+// const peerDependencies = packageJson.peerDependencies
 
 console.log('building...')
 build({
   entryPoints: ['src/index.ts', 'src/logger.ts'],
   outdir: 'lib',
   format: 'esm',
+  platform: 'node',
   bundle: true,
   minify: true,
-  external: [
-    ...Object.keys(dependencies),
-    ...Object.keys(peerDependencies)
-  ],
+  // external: [
+  //   ...Object.keys(dependencies),
+  //   ...Object.keys(peerDependencies)
+  // ],
 })
 
 build({
@@ -25,12 +26,13 @@ build({
   ],
   outdir: 'lib/middleware',
   format: 'esm',
+  platform: 'node',
   bundle: true,
   minify: true,
-  external: [
-    ...Object.keys(dependencies),
-    ...Object.keys(peerDependencies)
-  ],
+  // external: [
+  //   ...Object.keys(dependencies),
+  //   ...Object.keys(peerDependencies)
+  // ],
 })
 
 console.log('building done.')
