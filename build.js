@@ -8,10 +8,11 @@ const peerDependencies = packageJson.peerDependencies
 
 console.log('building...')
 build({
-  entryPoints: ['./src/index.ts'],
-  outdir: './lib',
-  format: 'cjs',
+  entryPoints: ['src/index.ts', 'src/logger.ts'],
+  outdir: 'lib',
+  format: 'esm',
   bundle: true,
+  minify: true,
   external: [
     ...Object.keys(dependencies),
     ...Object.keys(peerDependencies)
@@ -19,10 +20,14 @@ build({
 })
 
 build({
-  entryPoints: ['./src/lib/middleware/validate.ts'],
-  outdir: './lib/middleware/validate',
-  format: 'cjs',
+  entryPoints: [
+    'src/middleware/index.ts',
+    'src/middleware/validate.ts'
+  ],
+  outdir: 'lib/middleware',
+  format: 'esm',
   bundle: true,
+  minify: true,
   external: [
     ...Object.keys(dependencies),
     ...Object.keys(peerDependencies)
@@ -32,9 +37,13 @@ build({
 console.log('building done.')
 
 console.log('generating types...')
-new Generator({
-  entry: './src/index.ts',
-  output: './lib/index.d.ts',
-}).generate()
 
-console.log('all done.')
+try {
+  new Generator({
+    entry: 'src/index.ts',
+    output: 'lib/index.d.ts',
+  }).generate()
+  console.log('all done.')
+} catch (error) {
+  console.log('generate types error')
+}

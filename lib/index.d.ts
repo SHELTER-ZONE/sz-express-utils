@@ -1,11 +1,8 @@
 declare module '@shelter-zone/sz-express-utils/index' {
-  const _default: {
-      test: (a: number, b: number) => number;
-  };
-  export default _default;
+  export const test: (a: number, b: number) => number;
 
 }
-declare module '@shelter-zone/sz-express-utils/lib/logger' {
+declare module '@shelter-zone/sz-express-utils/logger' {
   import Signale from 'signale';
   export const signale: Signale.Signale<"debug" | "info" | "success" | "warn" | "request">;
   export const log: ({ level, message }: {
@@ -14,7 +11,7 @@ declare module '@shelter-zone/sz-express-utils/lib/logger' {
   }) => void;
 
 }
-declare module '@shelter-zone/sz-express-utils/lib/middleware/index' {
+declare module '@shelter-zone/sz-express-utils/middleware/index' {
   import { Request, Response, NextFunction } from 'express';
   global {
       namespace Express {
@@ -35,16 +32,25 @@ declare module '@shelter-zone/sz-express-utils/lib/middleware/index' {
       code?: string;
       message?: string;
   }
+  /**
+   * 格式化回應格式
+   */
   export const resFormat: ({ status, code, message, data }: ResponseFormat) => {
       status: number;
       code: string;
       message: string;
       data: any;
   };
+  /**
+   * res.send 擴充 (ok、fail)
+   */
   export const sendResponse: (_req: Request, res: Response, next: NextFunction) => void;
+  export const ignoreRequestStrings: Array<string>;
+  export function routeLog(req: Request, _res: Response, next: NextFunction): void;
+  export function disableCaching(req: Request, res: Response, next: NextFunction): void;
 
 }
-declare module '@shelter-zone/sz-express-utils/lib/middleware/validate' {
+declare module '@shelter-zone/sz-express-utils/middleware/validate' {
   import { Request, Response, NextFunction } from 'express';
   import { ObjectSchema } from 'joi';
   /**

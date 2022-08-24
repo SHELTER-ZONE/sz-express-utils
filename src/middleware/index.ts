@@ -1,4 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
+import { log } from '../logger'
+import dayjs from 'dayjs'
 
 declare global {
   namespace Express {
@@ -22,6 +24,9 @@ export interface ErrorResponse {
   message?: string
 }
 
+/**
+ * 格式化回應格式
+ */
 export const resFormat = ({ status, code, message, data }: ResponseFormat) => ({
   status,
   code: code || '',
@@ -29,6 +34,9 @@ export const resFormat = ({ status, code, message, data }: ResponseFormat) => ({
   data,
 })
 
+/**
+ * res.send 擴充 (ok、fail)
+ */
 export const sendResponse = (
   _req: Request,
   res: Response,
@@ -55,6 +63,42 @@ export const sendResponse = (
         message,
       })
     )
+  }
+
+  next()
+}
+
+export const ignoreRequestStrings: Array<string> = [
+  'js/',
+  'css/',
+  'img/',
+  'static/',
+  '_nuxt',
+  'manifest.json',
+]
+
+export function routeLog(req: Request, _res: Response, next: NextFunction) {
+  if (
+    ignoreRequestStrings.some((value) => req.originalUrl.includes(value)) ||
+    req.method === 'HEAD'
+  ) {
+    return next()
+  }
+  const nowTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
+  log({
+    level: 'request',
+    message: `${nowTime} ${req.method} ${req.originalUrl}`,
+  })
+  next()
+}
+
+export function disableCaching(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.originalUrl === '/') {
+    res.set('Cache-control', 'no-store')
   }
 
   next()

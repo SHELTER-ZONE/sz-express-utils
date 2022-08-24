@@ -41,3 +41,13 @@ const userAuthentication = useApiAuthentication(userDB, PRIVATEKEY)
 export const router = express.Router()
 router.use('/api', userAuthentication, routes)
 ```
+
+## **logger**
+
+```ts
+import { log } from '@shelter-zone/lib/logger'
+log({
+  level: 'info',
+  message: 'hello world',
+})
+```
