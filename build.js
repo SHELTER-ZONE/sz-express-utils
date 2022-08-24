@@ -12,7 +12,7 @@ build({
   outdir: 'lib',
   format: 'esm',
   platform: 'node',
-  bundle: true,
+  // bundle: true,
   minify: true,
   // external: [
   //   ...Object.keys(dependencies),
@@ -27,7 +27,7 @@ build({
   outdir: 'lib/middleware',
   format: 'esm',
   platform: 'node',
-  bundle: true,
+  // bundle: true,
   minify: true,
   // external: [
   //   ...Object.keys(dependencies),
