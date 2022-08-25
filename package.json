@@ -1,6 +1,6 @@
 {
   "name": "@shelter-zone/sz-express-utils",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "",
   "type": "module",
   "types": "./lib/index.d.ts",
@@ -9,7 +9,10 @@
     ".": "./lib/index.js",
     "./lib/logger": "./lib/logger.js",
     "./lib/middleware": "./lib/middleware/index.js",
-    "./lib/middleware/validate": "./lib/middleware/validate.js"
+    "./lib/middleware/validate": "./lib/middleware/validate.js",
+    "./logger": "./lib/logger.js",
+    "./middleware": "./lib/middleware/index.js",
+    "./middleware/validate": "./lib/middleware/validate.js"
   },
   "files": [
     "lib"

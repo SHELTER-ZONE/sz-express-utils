@@ -68,6 +68,6 @@ declare module '@shelter-zone/sz-express-utils/middleware/validate' {
 
 }
 declare module '@shelter-zone/sz-express-utils' {
-  import main = require('@shelter-zone/sz-express-utils/src/index');
+  import main = require('@shelter-zone/sz-express-utils/lib/index');
   export = main;
 }
