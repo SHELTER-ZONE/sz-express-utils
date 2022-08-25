@@ -6,18 +6,23 @@ const { Generator } = npmDts
 // const dependencies = packageJson.dependencies
 // const peerDependencies = packageJson.peerDependencies
 
+const deps = [
+  'dayjs',
+  'express',
+  'joi',
+  'jsonwebtoken',
+  'signale',
+]
+
 console.log('building...')
 build({
   entryPoints: ['src/index.ts', 'src/logger.ts'],
   outdir: 'lib',
   format: 'esm',
   platform: 'node',
-  // bundle: true,
+  bundle: true,
   minify: true,
-  // external: [
-  //   ...Object.keys(dependencies),
-  //   ...Object.keys(peerDependencies)
-  // ],
+  external: deps
 })
 
 build({
@@ -27,12 +32,9 @@ build({
   outdir: 'lib/middleware',
   format: 'esm',
   platform: 'node',
-  // bundle: true,
+  bundle: true,
   minify: true,
-  // external: [
-  //   ...Object.keys(dependencies),
-  //   ...Object.keys(peerDependencies)
-  // ],
+  external: deps
 })
 
 console.log('building done.')
