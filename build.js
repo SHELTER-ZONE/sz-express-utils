@@ -45,7 +45,7 @@ console.log('generating types...')
 try {
   new Generator({
     entry: 'lib/index.ts',
-    output: 'lib/index.d.ts',
+    output: 'lib/types.d.ts',
   }).generate()
   console.log('all done.')
 } catch (error) {

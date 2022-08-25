@@ -1,9 +1,9 @@
 {
   "name": "@shelter-zone/sz-express-utils",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "",
   "type": "module",
-  "types": "./lib/index.d.ts",
+  "types": "./lib/types.d.ts",
   "main": "./lib/index.js",
   "exports": {
     ".": "./lib/index.js",
