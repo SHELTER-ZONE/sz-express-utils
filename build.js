@@ -28,6 +28,7 @@ build({
 build({
   entryPoints: [
     'src/middleware/index.ts',
+    'src/middleware/validate.ts',
   ],
   outdir: 'lib/middleware',
   format: 'esm',
