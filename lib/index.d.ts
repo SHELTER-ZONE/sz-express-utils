@@ -1,5 +1,6 @@
 declare module '@shelter-zone/sz-express-utils/index' {
-  export const test: (a: number, b: number) => number;
+  export * from '@shelter-zone/sz-express-utils/middleware/index';
+  export * from '@shelter-zone/sz-express-utils/logger';
 
 }
 declare module '@shelter-zone/sz-express-utils/logger' {
@@ -12,6 +13,7 @@ declare module '@shelter-zone/sz-express-utils/logger' {
 
 }
 declare module '@shelter-zone/sz-express-utils/middleware/index' {
+  export * from '@shelter-zone/sz-express-utils/middleware/validate';
   import { Request, Response, NextFunction } from 'express';
   global {
       namespace Express {

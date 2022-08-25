@@ -1,3 +1,4 @@
+export * from './validate'
 import { Request, Response, NextFunction } from 'express'
 import { log } from '../logger'
 import dayjs from 'dayjs'
