@@ -26,6 +26,16 @@ build({
 })
 
 build({
+  entryPoints: ['src/lib/test.ts'],
+  outdir: 'lib',
+  format: 'esm',
+  platform: 'node',
+  bundle: true,
+  minify: true,
+  external: deps
+})
+
+build({
   entryPoints: [
     'src/middleware/index.ts',
     'src/middleware/validate.ts',
@@ -43,6 +53,11 @@ console.log('building done.')
 console.log('generating types...')
 
 try {
+  new Generator({
+    entry: 'src/index.ts',
+    output: 'src/index.d.ts',
+  }).generate()
+
   new Generator({
     entry: 'lib/index.ts',
     output: 'lib/index.d.ts',
