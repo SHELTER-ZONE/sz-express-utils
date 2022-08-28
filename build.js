@@ -11,7 +11,7 @@ console.log('building...')
 
 build({
   entryPoints: ['src/index.ts'],
-  outdir: 'lib',
+  outdir: '.',
   format: 'esm',
   platform: 'node',
   bundle: true,
@@ -21,7 +21,7 @@ build({
 
 build({
   entryPoints: ['src/logger.ts'],
-  outdir: 'lib/utils',
+  outdir: 'utils',
   format: 'esm',
   platform: 'node',
   bundle: true,
@@ -31,7 +31,7 @@ build({
 
 build({
   entryPoints: ['src/middleware/index.ts', 'src/middleware/validate.ts'],
-  outdir: 'lib/middleware',
+  outdir: 'middleware',
   format: 'esm',
   platform: 'node',
   bundle: true,
@@ -46,7 +46,7 @@ console.log('generating types...')
 try {
   new Generator({
     entry: 'src/index.ts',
-    output: 'lib/index.d.ts',
+    output: 'index.d.ts',
   }).generate()
   console.log('all done.')
 } catch (error) {

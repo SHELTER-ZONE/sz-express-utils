@@ -1,23 +1,23 @@
 {
   "name": "@shelter-zone/sz-express-utils",
-  "version": "0.0.26",
+  "version": "0.0.27",
   "description": "",
   "type": "module",
-  "types": "lib/index.d.ts",
-  "main": "lib/index.js",
+  "types": "index.d.ts",
+  "main": "index.js",
   "exports": {
     ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.js"
+      "import": "./index.js",
+      "require": "./index.js"
     }
   },
   "files": [
-    "lib/utils",
-    "lib/middleware",
-    "lib/ndex.d.ts"
+    "utils",
+    "middleware",
+    "index.d.ts"
   ],
   "scripts": {
-    "build": "rimraf lib && node build.js",
+    "build": "rimraf index.d.ts && rimraf lib && rimraf index.js && rimraf middleware && node build.js",
     "test": "node test/test.js"
   },
   "dependencies": {},
