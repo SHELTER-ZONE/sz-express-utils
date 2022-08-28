@@ -1,20 +1,10 @@
 declare module '@shelter-zone/sz-express-utils/index' {
-  export * from '@shelter-zone/sz-express-utils/middleware/index';
+  export * from '@shelter-zone/sz-express-utils/middleware/base';
   export * from '@shelter-zone/sz-express-utils/middleware/validate';
-  export * from '@shelter-zone/sz-express-utils/logger';
+  export * from '@shelter-zone/sz-express-utils/utils/logger';
 
 }
-declare module '@shelter-zone/sz-express-utils/logger' {
-  import Signale from 'signale';
-  export const signale: Signale.Signale<"debug" | "info" | "success" | "warn" | "request">;
-  export const log: ({ level, message }: {
-      level: string;
-      message: string;
-  }) => void;
-
-}
-declare module '@shelter-zone/sz-express-utils/middleware/index' {
-  export * from '@shelter-zone/sz-express-utils/middleware/validate';
+declare module '@shelter-zone/sz-express-utils/middleware/base' {
   import { Request, Response, NextFunction } from 'express';
   global {
       namespace Express {
@@ -68,6 +58,15 @@ declare module '@shelter-zone/sz-express-utils/middleware/validate' {
    * @param PRIVATEKEY: string
    */
   export const useApiAuthentication: (authDB: any, PRIVATEKEY: string) => (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
+
+}
+declare module '@shelter-zone/sz-express-utils/utils/logger' {
+  import Signale from 'signale';
+  export const signale: Signale.Signale<"debug" | "info" | "success" | "warn" | "request">;
+  export const log: ({ level, message }: {
+      level: string;
+      message: string;
+  }) => void;
 
 }
 declare module '@shelter-zone/sz-express-utils' {

@@ -6,7 +6,7 @@
 
 ```ts
 import express from 'express'
-import { sendResponse } from '@shelter-zone/lib/middleware'
+import { sendResponse } from '@shelter-zone/sz-express-utils/middleware/base'
 
 const app = express()
 app.use(sendResponse)
@@ -17,7 +17,7 @@ app.use(sendResponse)
 > **requestDataValidate**
 
 ```ts
-import { requestDataValidate } from '@shelter-zone/lib/middleware/validate'
+import { requestDataValidate } from '@shelter-zone/sz-express-utils/middleware/validate'
 import {CreateUserDataValidate} from './model'
 
 router.post(
@@ -30,7 +30,7 @@ router.post(
 > **useApiAuthentication**
 
 ```ts
-import { useApiAuthentication } from '@shelter-zone/lib/middleware/validate'
+import { useApiAuthentication } from '@shelter-zone/sz-express-utils/middleware/validate'
 import { userDB } from './db'
 import routes from './routes'
 
@@ -45,7 +45,7 @@ router.use('/api', userAuthentication, routes)
 ## **logger**
 
 ```ts
-import { log } from '@shelter-zone/lib/logger'
+import { log } from '@shelter-zone/sz-express-utils/logger'
 log({
   level: 'info',
   message: 'hello world',

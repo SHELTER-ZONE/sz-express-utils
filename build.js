@@ -20,7 +20,7 @@ build({
 })
 
 build({
-  entryPoints: ['src/logger.ts'],
+  entryPoints: ['src/utils/logger.ts'],
   outdir: 'utils',
   format: 'esm',
   platform: 'node',
@@ -30,7 +30,7 @@ build({
 })
 
 build({
-  entryPoints: ['src/middleware/index.ts', 'src/middleware/validate.ts'],
+  entryPoints: ['src/middleware/base.ts', 'src/middleware/validate.ts'],
   outdir: 'middleware',
   format: 'esm',
   platform: 'node',
