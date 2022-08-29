@@ -1,10 +1,10 @@
 declare module '@shelter-zone/sz-express-utils/index' {
-  export * from '@shelter-zone/sz-express-utils/middleware/base';
-  export * from '@shelter-zone/sz-express-utils/middleware/validate';
-  export * from '@shelter-zone/sz-express-utils/utils/logger';
+  export * from '@shelter-zone/sz-express-utils/src/middleware/base';
+  export * from '@shelter-zone/sz-express-utils/src/middleware/validate';
+  export * from '@shelter-zone/sz-express-utils/src/utils/logger';
 
 }
-declare module '@shelter-zone/sz-express-utils/middleware/base' {
+declare module '@shelter-zone/sz-express-utils/src/middleware/base' {
   import { Request, Response, NextFunction } from 'express';
   global {
       namespace Express {
@@ -43,7 +43,7 @@ declare module '@shelter-zone/sz-express-utils/middleware/base' {
   export function disableCaching(req: Request, res: Response, next: NextFunction): void;
 
 }
-declare module '@shelter-zone/sz-express-utils/middleware/validate' {
+declare module '@shelter-zone/sz-express-utils/src/middleware/validate' {
   import { Request, Response, NextFunction } from 'express';
   import { ObjectSchema } from 'joi';
   /**
@@ -60,7 +60,7 @@ declare module '@shelter-zone/sz-express-utils/middleware/validate' {
   export const useApiAuthentication: (authDB: any, PRIVATEKEY: string) => (req: Request, res: Response, next: NextFunction) => Promise<Response<any, Record<string, any>> | undefined>;
 
 }
-declare module '@shelter-zone/sz-express-utils/utils/logger' {
+declare module '@shelter-zone/sz-express-utils/src/utils/logger' {
   import Signale from 'signale';
   export const signale: Signale.Signale<"debug" | "info" | "success" | "warn" | "request">;
   export const log: ({ level, message }: {
@@ -70,6 +70,6 @@ declare module '@shelter-zone/sz-express-utils/utils/logger' {
 
 }
 declare module '@shelter-zone/sz-express-utils' {
-  import main = require('@shelter-zone/sz-express-utils/src/index');
+  import main = require('@shelter-zone/sz-express-utils/index');
   export = main;
 }

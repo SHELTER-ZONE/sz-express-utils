@@ -10,7 +10,7 @@ const deps = ['dayjs', 'express', 'joi', 'jsonwebtoken', 'signale']
 console.log('building...')
 
 build({
-  entryPoints: ['src/index.ts'],
+  entryPoints: ['index.ts'],
   outdir: '.',
   format: 'esm',
   platform: 'node',
@@ -45,7 +45,7 @@ console.log('generating types...')
 
 try {
   new Generator({
-    entry: 'src/index.ts',
+    entry: 'index.ts',
     output: 'index.d.ts',
   }).generate()
   console.log('all done.')
