@@ -1,6 +1,6 @@
 {
   "name": "@shelter-zone/sz-express-utils",
-  "version": "0.0.30",
+  "version": "0.0.33",
   "description": "",
   "type": "module",
   "types": "index.d.ts",
@@ -12,12 +12,10 @@
     }
   },
   "files": [
-    "utils",
-    "middleware",
     "index.d.ts"
   ],
   "scripts": {
-    "build": "rimraf index.d.ts && rimraf lib && rimraf index.js && rimraf middleware && node build.js",
+    "build": "rimraf dist && node build.js",
     "test": "node test/test.js"
   },
   "dependencies": {},

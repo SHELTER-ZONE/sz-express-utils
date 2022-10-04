@@ -11,29 +11,10 @@ console.log('building...')
 
 build({
   entryPoints: ['src/index.ts'],
-  outdir: '.',
-  format: 'esm',
+  outdir: './dist',
+  format: 'cjs',
   platform: 'node',
-  bundle: true,
-  minify: true,
-  external: deps,
-})
-
-build({
-  entryPoints: ['src/utils/logger.ts'],
-  outdir: 'utils',
-  format: 'esm',
-  platform: 'node',
-  bundle: true,
-  minify: true,
-  external: deps,
-})
-
-build({
-  entryPoints: ['src/middleware/base.ts', 'src/middleware/validate.ts'],
-  outdir: 'middleware',
-  format: 'esm',
-  platform: 'node',
+  target: ['node12'],
   bundle: true,
   minify: true,
   external: deps,
