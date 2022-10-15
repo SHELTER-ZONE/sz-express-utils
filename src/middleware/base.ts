@@ -43,13 +43,7 @@ export const sendResponse = (
   next: NextFunction
 ) => {
   res.ok = (data?: any) => {
-    res.json(
-      resFormat({
-        status: 200,
-        message: 'ok',
-        data: data,
-      })
-    )
+    res.json(data)
   }
 
   res.fail = ({ status, code, message }: ErrorResponse) => {

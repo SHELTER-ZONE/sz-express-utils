@@ -13,8 +13,9 @@ export const requestDataValidate = (
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      if (dataFrom === 'query') await model.validateAsync(req.query)
-      else if (dataFrom === 'body') await model.validateAsync(req.body)
+      if (dataFrom === 'query') req.query = await model.validateAsync(req.query)
+      else if (dataFrom === 'body')
+        req.query = await model.validateAsync(req.body)
     } catch (error: any) {
       res.status(400).send(error.message)
       return
