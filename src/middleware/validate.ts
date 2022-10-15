@@ -46,6 +46,7 @@ export const useApiAuthentication = (authDB: any, PRIVATEKEY: string) => {
         if (!existUser.count) return res.status(401).send('forbidden')
         // TODO 合法 user -> 判斷user權限
       } catch (error) {
+        console.log(error)
         return res.status(401).send('internal server error')
       }
     }
