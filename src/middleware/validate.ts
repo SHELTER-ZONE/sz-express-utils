@@ -16,8 +16,7 @@ export const requestDataValidate = (
       if (dataFrom === 'query') req.query = await model.validateAsync(req.query)
       if (dataFrom === 'body') req.body = await model.validateAsync(req.body)
     } catch (error: any) {
-      res.status(400).send(error.message)
-      return
+      return res.fail({ status: 400, message: error.message })
     }
     next()
   }
@@ -35,22 +34,46 @@ export const useApiAuthentication = (authDB: any, PRIVATEKEY: string) => {
     next: NextFunction,
   ) => {
     const userToken: string | undefined = req.headers.authorization
-    if (!userToken) return res.status(401).send('unauthorized')
-    if (userToken) {
-      try {
-        // jwt 解碼 user token 得到 user
-        const decodeRes: any = verify(userToken, PRIVATEKEY)
-        // 查詢是否存在 user
-        const existUser = await authDB.fetch({ id: decodeRes.user.id })
-        if (!existUser.count) return res.status(401).send('forbidden')
-        // TODO 合法 user -> 判斷user權限
-      } catch (error) {
-        console.log(error)
-        return res.status(401).send('internal server error')
-      }
+    if (!userToken) return res.fail({ status: 401 })
+    try {
+      // jwt 解碼 user token 得到 user
+      const decodeRes: any = verify(userToken, PRIVATEKEY)
+      // 查詢是否存在 user
+      const existUser = await authDB.get(decodeRes.user.id)
+      if (!existUser) return res.fail({ status: 401 })
+      if (existUser) req.user = existUser
+    } catch (error) {
+      console.log(error)
+      return res.fail({ status: 500 })
     }
     next()
   }
 
   return apiAuthentication
+}
+
+export const usePermissionsVerify = (
+  reqPermissions: string[],
+  rules: 'match' | 'contain',
+) => {
+  const permissionsVerify = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+  ) => {
+    const user = req.user
+    if (!user) return res.fail({ status: 401 })
+    // match all permissions mode
+    if (rules === 'match') {
+      const match = user.permissions.filter((permit: string) =>
+        reqPermissions.includes(permit),
+      )
+      if (match.length !== reqPermissions.length)
+        return res.fail({ status: 403 })
+    }
+    // TODO contain permissions mode
+    next()
+  }
+
+  return permissionsVerify
 }

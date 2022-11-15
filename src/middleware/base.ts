@@ -4,6 +4,9 @@ import dayjs from 'dayjs'
 
 declare global {
   namespace Express {
+    export interface Request {
+      user: any
+    }
     export interface Response {
       ok: (data?: any) => void
       fail: ({ status, code, message }: ErrorResponse) => void
@@ -40,7 +43,7 @@ export const resFormat = ({ status, code, message, data }: ResponseFormat) => ({
 export const sendResponse = (
   _req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   res.ok = (data?: any) => {
     res.json(data)
@@ -55,7 +58,7 @@ export const sendResponse = (
         status,
         code,
         message,
-      })
+      }),
     )
   }
 
@@ -89,7 +92,7 @@ export const routeLog = (req: Request, _res: Response, next: NextFunction) => {
 export function disableCaching(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   if (req.originalUrl === '/') {
     res.set('Cache-control', 'no-store')
