@@ -9,13 +9,12 @@ import { verify } from 'jsonwebtoken'
  */
 export const requestDataValidate = (
   model: ObjectSchema,
-  dataFrom: 'query' | 'body'
+  dataFrom: 'query' | 'body',
 ) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (dataFrom === 'query') req.query = await model.validateAsync(req.query)
-      else if (dataFrom === 'body')
-        req.query = await model.validateAsync(req.body)
+      if (dataFrom === 'body') req.body = await model.validateAsync(req.body)
     } catch (error: any) {
       res.status(400).send(error.message)
       return
@@ -33,7 +32,7 @@ export const useApiAuthentication = (authDB: any, PRIVATEKEY: string) => {
   const apiAuthentication = async (
     req: Request,
     res: Response,
-    next: NextFunction
+    next: NextFunction,
   ) => {
     const userToken: string | undefined = req.headers.authorization
     if (!userToken) return res.status(401).send('unauthorized')

@@ -44,7 +44,6 @@ export const log = ({ level, message }: { level: string; message: string }) => {
     levelSignale({
       prefix: `[${dayjs().format('YYYY-MM-DD HH:mm:ss')}]`,
       message: message,
-      suffix: '(@klauscfhq)',
     })
     return
   }
