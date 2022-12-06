@@ -23,7 +23,6 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/signale": "^1.4.4",
     "dayjs": "^1.11.5",
-    "deta": "^1.1.0",
     "joi": "^17.6.0",
     "rimraf": "^3.0.2",
     "tsup": "^6.2.3",
