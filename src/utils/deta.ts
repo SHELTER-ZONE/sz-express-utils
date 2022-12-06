@@ -8,14 +8,14 @@ declare class Action {
 }
 
 // Basic types
-declare type BasicType = string | number | boolean;
-declare type NullType = null;
-declare type UndefinedType = undefined;
-declare type ObjectType = {
+type BasicType = string | number | boolean;
+type NullType = null;
+type UndefinedType = undefined;
+type ObjectType = {
   [key: string]: ObjectType | ArrayType | BasicType | NullType | UndefinedType | Action;
 };
-declare type ArrayType = Array<ArrayType | ObjectType | BasicType | NullType | UndefinedType>;
-declare type CompositeType = ArrayType | ObjectType;
+type ArrayType = Array<ArrayType | ObjectType | BasicType | NullType | UndefinedType>;
+type CompositeType = ArrayType | ObjectType;
 
 // Fetch options
 interface FetchOptions {
@@ -24,21 +24,21 @@ interface FetchOptions {
 }
 
 // Fetch response
-declare enum ActionTypes {
+enum ActionTypes {
   Set = "set",
   Trim = "trim",
   Increment = "increment",
   Append = "append",
   Prepend = "prepend"
 }
-declare interface FetchResponse {
+interface FetchResponse {
   items: ObjectType[];
   count: number;
   last?: string;
 }
 
 // Base
-declare class Base {
+interface Base {
   fetch(query?: CompositeType, options?: FetchOptions): Promise<FetchResponse>;
 }
 
