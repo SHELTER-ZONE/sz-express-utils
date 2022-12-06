@@ -1,2 +1,2 @@
 export * from '@/middleware'
-export * from '@/utils/logger'
+export * from '@/utils'
