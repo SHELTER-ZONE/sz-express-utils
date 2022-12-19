@@ -45,9 +45,30 @@ router.use('/api', userAuthentication, routes)
 ## **logger**
 
 ```ts
-import { log } from '@shelter-zone/sz-express-utils/logger'
+import { log } from '@shelter-zone/sz-express-utils/utils/logger'
 log({
   level: 'info',
   message: 'hello world',
 })
+```
+
+## **Utils**
+
+> **validateUserID**
+
+```ts
+import { validateUserID } from '@shelter-zone/sz-express-utils/utils/discord'
+
+router.post(
+  '/user',
+  async (req, res) => {
+    try {
+      await validateUserID(req.headers.authorization, req.body.id)
+      ...
+    }
+    catch (err) {
+      ...
+    }
+  }
+)
 ```
