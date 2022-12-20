@@ -10,7 +10,6 @@ export const validateUserID = async (oAuthToken: string | undefined, dataUserId:
     method: 'get',
     url: 'https://discord.com/api/users/@me',
     headers: {
-      "Accept-Encoding": "gzip,deflate,compress",
       authorization: oAuthToken.startsWith('Bearer ') ? oAuthToken : `Bearer ${oAuthToken}`,
     },
   })
