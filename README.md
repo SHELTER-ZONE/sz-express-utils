@@ -14,15 +14,17 @@ app.use(sendResponse)
 
 ## **middleware/validate**
 
-> **requestDataValidate**
+> **useReqDataValidate**
 
 ```ts
-import { requestDataValidate } from '@shelter-zone/sz-express-utils/middleware/validate'
-import {CreateUserDataValidate} from './model'
+import { useReqDataValidate } from '@shelter-zone/sz-express-utils/middleware/validate'
+import { CreateUserDataValidate } from './model'
+
+const { joiValidate, superStructValidate } = useReqDataValidate()
 
 router.post(
   '/user',
-  requestDataValidate(CreateUserDataValidate, 'body'),
+  joiValidate(CreateUserDataValidate, 'body'),
   async (req, res) => {...}
 )
 ```

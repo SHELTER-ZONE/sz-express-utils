@@ -1,24 +1,45 @@
 import { Request, Response, NextFunction } from 'express'
 import { ObjectSchema } from 'joi'
 import { verify } from 'jsonwebtoken'
+import { assert, Struct } from 'superstruct'
 
-/**
- * 驗證請求攜帶的資料是否合法
- * @param model: joi model
- * @param dataFrom: 'query' | 'body'
- */
-export const requestDataValidate = (
-  model: ObjectSchema,
-  dataFrom: 'query' | 'body',
-) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      if (dataFrom === 'query') req.query = await model.validateAsync(req.query)
-      if (dataFrom === 'body') req.body = await model.validateAsync(req.body)
-    } catch (error: any) {
-      return res.fail({ status: 400, message: error.message })
+export const useReqDataValidate = () => {
+  /**
+   * 驗證請求攜帶的資料是否合法
+   * @param model: joi model
+   * @param dataFrom: 'query' | 'body'
+   */
+  const joiValidate = (model: ObjectSchema, dataFrom: 'query' | 'body') => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+      try {
+        if (dataFrom === 'query')
+          req.query = await model.validateAsync(req.query)
+        if (dataFrom === 'body') req.body = await model.validateAsync(req.body)
+      } catch (error: any) {
+        return res.fail({ status: 400, message: error.message })
+      }
+      next()
     }
-    next()
+  }
+
+  const superStructValidate = <S>(
+    schema: Struct<S>,
+    dataFrom: 'query' | 'body',
+  ) => {
+    return (req: Request, res: Response, next: NextFunction) => {
+      try {
+        if (dataFrom === 'query') assert(req.query, schema)
+        if (dataFrom === 'body') assert(req.body, schema)
+        next()
+      } catch (error: any) {
+        return res.fail({ status: 400, message: error.message })
+      }
+    }
+  }
+
+  return {
+    joiValidate,
+    superStructValidate,
   }
 }
 
