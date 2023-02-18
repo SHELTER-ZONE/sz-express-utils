@@ -6,7 +6,7 @@
 
 ```ts
 import express from 'express'
-import { sendResponse } from '@shelter-zone/sz-express-utils/middleware/base'
+import { sendResponse } from '@shelter-zone/sz-express-utils'
 
 const app = express()
 app.use(sendResponse)
@@ -17,7 +17,7 @@ app.use(sendResponse)
 > **useReqDataValidate**
 
 ```ts
-import { useReqDataValidate } from '@shelter-zone/sz-express-utils/middleware/validate'
+import { useReqDataValidate } from '@shelter-zone/sz-express-utils'
 import { CreateUserDataValidate } from './model'
 
 const { joiValidate, superStructValidate } = useReqDataValidate()
@@ -32,7 +32,7 @@ router.post(
 > **useApiAuthentication**
 
 ```ts
-import { useApiAuthentication } from '@shelter-zone/sz-express-utils/middleware/validate'
+import { useApiAuthentication } from '@shelter-zone/sz-express-utils'
 import { userDB } from './db'
 import routes from './routes'
 
@@ -47,7 +47,7 @@ router.use('/api', userAuthentication, routes)
 ## **logger**
 
 ```ts
-import { log } from '@shelter-zone/sz-express-utils/utils/logger'
+import { log } from '@shelter-zone/sz-express-utils'
 log({
   level: 'info',
   message: 'hello world',
@@ -59,7 +59,7 @@ log({
 > **validateUserID**
 
 ```ts
-import { validateUserID } from '@shelter-zone/sz-express-utils/utils/discord'
+import { validateUserID } from '@shelter-zone/sz-express-utils'
 
 router.post(
   '/user',
