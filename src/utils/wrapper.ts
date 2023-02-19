@@ -4,7 +4,7 @@ export const serviceWrapper = async (
   req: Request,
   res: Response,
   serviceHandler: CallableFunction,
-  options: { logger: CallableFunction },
+  options: { logger?: CallableFunction } = {},
 ) => {
   try {
     await serviceHandler(req, res)
