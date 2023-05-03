@@ -48,7 +48,10 @@ export const useReqDataValidate = () => {
  * @param authDB: deta base
  * @param PRIVATEKEY: string
  */
-export const useApiAuthentication = (authDB: any, PRIVATEKEY: string) => {
+export const useApiAuthentication = (
+  PRIVATEKEY: string,
+  getUserFunc: CallableFunction,
+) => {
   const apiAuthentication = async (
     req: Request,
     res: Response,
@@ -60,7 +63,8 @@ export const useApiAuthentication = (authDB: any, PRIVATEKEY: string) => {
       // jwt 解碼 user token 得到 user
       const decodeRes: any = verify(userToken, PRIVATEKEY)
       // 查詢是否存在 user
-      const existUser = await authDB.get(decodeRes.user.id)
+      // const existUser = await authDB.get(decodeRes.user.id)
+      const existUser = await getUserFunc(decodeRes.user.id)
       if (!existUser) return res.fail({ status: 401 })
       if (existUser) req.user = existUser
     } catch (error) {
