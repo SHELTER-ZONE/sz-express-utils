@@ -81,11 +81,13 @@ export const routeLog = (req: Request, _res: Response, next: NextFunction) => {
   ) {
     return next()
   }
-  const nowTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
+  // const nowTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
   log({
     level: 'request',
-    message: `${nowTime} ${req.method} ${req.originalUrl}`,
+    message: `${req.method} ${req.originalUrl}`,
   })
+  if (req.body) console.log('body', req.body)
+  if (req.query) console.log('query', req.query)
   next()
 }
 
