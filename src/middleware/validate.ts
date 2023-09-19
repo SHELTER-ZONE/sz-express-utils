@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { ObjectSchema } from 'joi'
 import { verify } from 'jsonwebtoken'
 import { assert, Struct } from 'superstruct'
+import { Schema as zSchema } from 'zod'
 
 export const useReqDataValidate = () => {
   /**
@@ -37,9 +38,22 @@ export const useReqDataValidate = () => {
     }
   }
 
+  const zodValidate = <S>(schema: zSchema<S>, dataFrom: 'query' | 'body') => {
+    return (req: Request, res: Response, next: NextFunction) => {
+      try {
+        if (dataFrom === 'query') schema.parse(req.query)
+        if (dataFrom === 'body') schema.parse(req.body)
+        next()
+      } catch (error: any) {
+        return res.fail({ status: 400, message: error.message })
+      }
+    }
+  }
+
   return {
     joiValidate,
     superStructValidate,
+    zodValidate,
   }
 }
 
