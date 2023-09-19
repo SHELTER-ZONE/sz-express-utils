@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
 import { log } from '../utils/logger'
-import dayjs from 'dayjs'
 
 declare global {
   namespace Express {
@@ -17,14 +16,14 @@ declare global {
 export interface ResponseFormat {
   status: number
   code?: string
-  message?: string
+  message?: any
   data?: any
 }
 
 export interface ErrorResponse {
   status?: number
   code?: string
-  message?: string
+  message?: any
 }
 
 /**
@@ -32,8 +31,8 @@ export interface ErrorResponse {
  */
 export const resFormat = ({ status, code, message, data }: ResponseFormat) => ({
   status,
-  code: code || '',
-  message: message || '',
+  code: code || null,
+  message: message || null,
   data,
 })
 
@@ -49,7 +48,7 @@ export const sendResponse = (
     res.json(data)
   }
 
-  res.fail = ({ status, code, message }: ErrorResponse) => {
+  res.fail = ({ status, code, message }: ErrorResponse): void => {
     status = status ?? 500
     if (!message && status === 500) message = 'unknow server internal error'
 

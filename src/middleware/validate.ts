@@ -40,13 +40,16 @@ export const useReqDataValidate = () => {
 
   const zodValidate = <S>(schema: zSchema<S>, dataFrom: 'query' | 'body') => {
     return (req: Request, res: Response, next: NextFunction) => {
-      try {
-        if (dataFrom === 'query') schema.parse(req.query)
-        if (dataFrom === 'body') schema.parse(req.body)
-        next()
-      } catch (error: any) {
-        return res.fail({ status: 400, message: error.message })
+      let result
+      if (dataFrom === 'query') result = schema.safeParse(req.query)
+      if (dataFrom === 'body') result = schema.safeParse(req.body)
+      if (!result) return res.fail({ status: 500 })
+      if (!result.success) {
+        const formattedError = result.error.format()
+        return res.fail({ status: 400, message: formattedError })
       }
+
+      next()
     }
   }
 
