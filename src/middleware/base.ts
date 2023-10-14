@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import { log } from '../utils/logger'
+import dayjs from 'dayjs'
 
 declare global {
   namespace Express {
@@ -24,6 +24,14 @@ export interface ErrorResponse {
   status?: number
   code?: string
   message?: any
+}
+
+const getDurationInMilliseconds = (start: [number, number]) => {
+  const NS_PER_SEC = 1e9
+  const NS_TO_MS = 1e6
+  const diff = process.hrtime(start)
+
+  return (diff[0] * NS_PER_SEC + diff[1]) / NS_TO_MS
 }
 
 /**
@@ -80,11 +88,27 @@ export const routeLog = (req: Request, _res: Response, next: NextFunction) => {
   ) {
     return next()
   }
-  // const nowTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
-  log({
-    level: 'request',
-    message: `${req.method} ${req.originalUrl}`,
+
+  const baseLog = `${req.method} ${req.originalUrl} - [${req.ip}]`
+  console.log(`${baseLog}[${dayjs().format('YYYY-MM-DD HH:mm:ss')}] [STARTED]`)
+
+  const start = process.hrtime()
+
+  _res.on('finish', () => {
+    const durationInMilliseconds = getDurationInMilliseconds(start)
+    console.log(
+      `${baseLog}[FINISHED] ${durationInMilliseconds.toLocaleString()} ms`,
+    )
   })
+
+  _res.on('close', () => {
+    const durationInMilliseconds = getDurationInMilliseconds(start)
+    console.log(
+      `${baseLog} [CLOSED] ${durationInMilliseconds.toLocaleString()} ms`,
+    )
+    console.log('-----------------------------------------------------------')
+  })
+
   if (req.body) console.log('body', req.body)
   if (req.query) console.log('query', req.query)
   next()

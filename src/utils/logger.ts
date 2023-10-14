@@ -2,7 +2,6 @@ import Signale, { SignaleBase } from 'signale'
 import dayjs from 'dayjs'
 
 export const signale = new Signale.Signale({
-  scope: 'WebCrate',
   logLevel: process.env.LOG_LEVEL || 'info',
   types: {
     success: {
