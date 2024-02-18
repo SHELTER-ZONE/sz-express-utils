@@ -42,12 +42,15 @@ export const useReqDataValidate = () => {
     return (req: Request, res: Response, next: NextFunction) => {
       let result
       if (dataFrom === 'query') result = schema.safeParse(req.query)
-      if (dataFrom === 'body') result = schema.safeParse(req.body)
+      else if (dataFrom === 'body') result = schema.safeParse(req.body)
       if (!result) return res.fail({ status: 500 })
       if (!result.success) {
         const formattedError = result.error.format()
         return res.fail({ status: 400, message: formattedError })
       }
+
+      if (dataFrom === 'query') req.query = result.data
+      else if (dataFrom === 'body') req.body = result.data
 
       next()
     }
