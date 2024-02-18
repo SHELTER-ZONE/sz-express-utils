@@ -49,7 +49,7 @@ export const useReqDataValidate = () => {
         return res.fail({ status: 400, message: formattedError })
       }
 
-      if (dataFrom === 'query') req.query = result.data
+      if (dataFrom === 'query') req.query = result.data as any
       else if (dataFrom === 'body') req.body = result.data
 
       next()
